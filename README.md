@@ -10,6 +10,31 @@
     Made with Vim :3
     This was a around 7 day project (i think :P) from learning the basics of JAVA to a full mod.
 
+## Latest update
+    Added Keys
+        %SETMOVMENT for custom movment msg
+    
+    Changed how Keys that contain mutiple values work.
+    Now they are placed in {} with keys as for the values.
+
+    %COLOR {
+        %ALPHA
+        255
+
+        %RED
+        255
+
+        %GREEN
+        255
+
+        %BLUE
+        255    
+    }
+
+    Meaning that u can set for example only %BLUE to the defaul value.
+
+    Default color is now 0xFF000000 black to be able set color eazier with the new system.
+
 ## Install
     If ur IDE wont build it for you use:
         ./gradlew
@@ -30,6 +55,8 @@
 ###     Rules:
         After a keyword the next line needs to be its value!!! (the code loads the vaule directly under the keyword)
         Dont create coloms and rows with a index that is out reach. (the game will crash as by desig)
+
+        If your game crashes at start ur config is probaly writen wrongly.
         
 ###     Start:
         Start with a colom:
@@ -109,7 +136,8 @@
         "%POSX" sets row's starter x position (values: index[left = 0, center = 1, right = 2])
         "%POSY" sets row's starter y position (values: index[top = 0, center = 1, right = 2])
 
-        "%COLOR" color of the text in a row (vaules: alpha, red, green, blue)
+        "%COLOR {" color of the text in a row (vaules: %ALPHA, %RED, %GREEN, %BLUE)
+        "%SETMOVMENT {" sets what %MOVMENT displayes in a row (values: %SWIM, %CROUCH, %SPRINT, %STAND) // only applays to the row that it is in
         "%ALIGN" text will be centred to its cords (vaules: bool)
 
         "%NAME" displayes user's name
@@ -119,7 +147,7 @@
         "%CORDSX" displayes user's X position
         "%CORDSY" displayes user's Y position
         "%CORDSZ" displayes user's Z position
-        "%MOVMENT" displayes if user is swimming/crouching/sprinting
+        "%MOVMENT" displayes if user is swimming/crouching/sprinting (or set values with %SETMOVMENT)
 
         "%SPACE" insurts space
         "%TAP" insurets tap (4 spaces)

@@ -79,10 +79,10 @@ public class MyHud{
         }
     }
 
-    static String getMovment(){
-        if(camera.isSwimming()) return "Swimming";
-        if(camera.isCrouching()) return "Crouching";
-        if(camera.isSprinting()) return "Sprinting";
-        return "";
+    static int getMovment(){
+        if(camera.isSwimming()) return 0;
+        if(camera.isCrouching()) return 1;
+        if(camera.isSprinting()) return 2;
+        return 3;
     }
 }

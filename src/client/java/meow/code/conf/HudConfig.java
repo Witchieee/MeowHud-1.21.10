@@ -15,7 +15,7 @@ public class HudConfig{
     public String cords_x;
     public String cords_y;
     public String cords_z;
-    public String movment;
+    public int movment;
 
     public ArrayList<ArrayList<ConfigInfo>> config = new ArrayList<ArrayList<ConfigInfo>>();
     

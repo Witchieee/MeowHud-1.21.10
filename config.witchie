@@ -10,11 +10,16 @@ colom {
         %POSX
             1   
  
-        %COLOR
-            255
+        %COLOR {
+            %RED
             59
+
+            %GREEN
             151
+
+            %BLUE
             151
+        }
      
         %ALIGN
             true
@@ -28,11 +33,16 @@ colom {
         %POSX
             1
 
-        %COLOR
-            255
+        %COLOR {
+            %RED
             22
+
+            %GREEN
             71
+
+            %BLUE
             106
+        }
 
         %ALIGN
             true
@@ -57,11 +67,16 @@ colom {
         %POSX
             1
 
-        %COLOR
-            255
+        %COLOR {
+            %RED
             19
+
+            %GREEN
             36
+
+            %BLUE
             64
+        }
 
         %ALIGN
             true
@@ -92,11 +107,28 @@ colom {
         %OFFSETY
             -95
 
-        %COLOR
-            255
+        %COLOR {
+            %RED
             253
+        
+            %GREEN
             181
+
+            %BLUE
             206
+        }
+
+        %SETMOVMENT {
+            %SWIM
+            < Swimming >
+
+            %CROUCH
+            < Crouching >
+
+            %SPRINT
+            < Sprinting >
+
+        }
 
         %ALIGN
             true

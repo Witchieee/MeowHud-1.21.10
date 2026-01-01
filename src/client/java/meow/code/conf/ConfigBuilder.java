@@ -4,6 +4,7 @@ import meow.code.MeowHudClient;
 
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class ConfigBuilder{
     HudConfig arg0;
+    ConfigInfo object;
     Path config_path;
     List<String> reader;
     ArrayList<ArrayList<ConfigInfo>> holder = new ArrayList<ArrayList<ConfigInfo>>();
@@ -73,12 +75,13 @@ public class ConfigBuilder{
 
     void confiClassLoader(){
         String line;
-        ConfigInfo object = holder.get(at_colom).get(at_row);
+        object = holder.get(at_colom).get(at_row);
 
         object.holder = arg0;
 
         while(!reader.isEmpty()){
             line = reader.remove(0).trim();   
+            
             switch(line){
                 // exit row handel
                 case "}":
@@ -108,15 +111,12 @@ public class ConfigBuilder{
                     object.pos_y = Integer.parseInt(reader.remove(0).trim());
                     break;
 
-                case "%COLOR":
-                    if(reader.isEmpty()) return;
-                    object.color = Integer.parseInt(reader.remove(0).trim()) << 24;
-                    if(reader.isEmpty()) return;
-                    object.color += Integer.parseInt(reader.remove(0).trim()) << 16 ;
-                    if(reader.isEmpty()) return;
-                    object.color += Integer.parseInt(reader.remove(0).trim()) << 8;
-                    if(reader.isEmpty()) return;
-                    object.color += Integer.parseInt(reader.remove(0).trim());
+                case "%COLOR {":
+                    setColor();
+                    break;
+
+                case "%SETMOVMENT {":
+                    setMovment();
                     break;
 
                 case "%ALIGN":
@@ -168,6 +168,82 @@ public class ConfigBuilder{
                 
                 default:
                     object.keys.add(object.new STRING(line));
+            }
+        }
+    }
+
+    void setColor(){
+        String line;
+
+        while(!reader.isEmpty()){
+            line = reader.remove(0).trim();
+
+             switch(line){
+                case "}":
+                    return;
+
+                case "%ALPA":
+                    if(reader.isEmpty()) return;
+                    object.color &= 0x00FFFFFF;
+                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 24;
+                    break;
+
+                case "%RED":
+                    if(reader.isEmpty()) return;
+                    object.color &= 0xFF00FFFF;
+                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 16;
+                    break;
+
+                case "%GREEN":
+                    if(reader.isEmpty()) return;
+                    object.color &= 0xFFFF00FF;
+                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 8;
+                    break;
+
+                 case "%BLUE":
+                    if(reader.isEmpty()) return;
+                    object.color &= 0xFFFFFF00;
+                    object.color |= Integer.parseInt(reader.remove(0).trim());
+                    break;
+
+                 default:
+                    break;
+            }           
+        }
+    }
+
+    void setMovment(){
+        String line;
+
+        while(!reader.isEmpty()){
+            line = reader.remove(0).trim();
+
+            switch(line){
+                case "}":
+                    return;
+
+                case "%SWIM":
+                    if(reader.isEmpty()) return;
+                    object.movment[0] = reader.remove(0).trim();
+                    break;
+
+                case "%CROUCH":
+                    if(reader.isEmpty()) return;
+                    object.movment[1] = reader.remove(0).trim();
+                    break;
+
+                case "%SPRINT":
+                    if(reader.isEmpty()) return;
+                    object.movment[2] = reader.remove(0).trim();
+                    break;
+
+                 case "%STAND":
+                    if(reader.isEmpty()) return;
+                    object.movment[3] = reader.remove(0).trim();
+                    break;
+
+                 default:
+                    break;
             }
         }
     }

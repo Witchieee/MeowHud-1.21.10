@@ -11,8 +11,10 @@ public class ConfigInfo{
     public int offset_y = 10;
     public int pos_x = 0;
     public int pos_y = 0;
-    public int color = 0xFFFF0000;
+    public int color = 0xFF000000;
     public boolean align = false;
+    public String[] movment = {"Swimming", "Crouching", "Sprinting", ""};
+    public String stand = "";
     public ArrayList<ConfigInfo.InfoClass> keys = new ArrayList<ConfigInfo.InfoClass>(); 
 
     public class InfoClass{
@@ -65,7 +67,7 @@ public class ConfigInfo{
 
     public class MOVMENT extends InfoClass{
         public String get(){
-            return holder.movment;
+            return movment[holder.movment];
         }
     }
 
