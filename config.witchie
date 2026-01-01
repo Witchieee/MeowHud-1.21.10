@@ -19,7 +19,7 @@ colom {
         %ALIGN
             true
 
-        %NAME 
+        %NAME
     }
 
     row {
@@ -30,9 +30,9 @@ colom {
 
         %COLOR
             255
-            59
-            151
-            151
+            22
+            71
+            106
 
         %ALIGN
             true
@@ -59,9 +59,9 @@ colom {
 
         %COLOR
             255
-            59
-            151
-            151
+            19
+            36
+            64
 
         %ALIGN
             true
@@ -90,13 +90,13 @@ colom {
             2
 
         %OFFSETY
-            -100
+            -95
 
         %COLOR
             255
-            59
-            151
-            151
+            253
+            181
+            206
 
         %ALIGN
             true
