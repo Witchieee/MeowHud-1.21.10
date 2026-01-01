@@ -1,0 +1,107 @@
+colom {
+    0
+
+    row {
+        0
+
+        %OFFSETY
+            5
+
+        %POSX
+            1   
+ 
+        %COLOR
+            255
+            59
+            151
+            151
+     
+        %ALIGN
+            true
+
+        %NAME 
+    }
+
+    row {
+        1
+
+        %POSX
+            1
+
+        %COLOR
+            255
+            59
+            151
+            151
+
+        %ALIGN
+            true
+
+        %PING
+        %SPACE
+        ms |
+        %SPACE
+        %FPS
+        %SPACE
+        fps |
+        %SPACE
+        %TPS
+        %SPACE
+        tps
+
+    }
+
+    row {
+        2
+
+        %POSX
+            1
+
+        %COLOR
+            255
+            59
+            151
+            151
+
+        %ALIGN
+            true
+
+        X:
+        %SPACE
+        %CORDSX
+        %SPACE
+        Y:
+        %SPACE
+        %CORDSY
+        %SPACE
+        Z:
+        %SPACE
+        %CORDSZ
+
+    }
+
+    row {
+        3
+
+        %POSX
+            1
+
+        %POSY
+            2
+
+        %OFFSETY
+            -100
+
+        %COLOR
+            255
+            59
+            151
+            151
+
+        %ALIGN
+            true
+
+        %MOVMENT
+
+    }
+}
