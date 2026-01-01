@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "meowhud",
+	"version": "${version}",
+	"name": "MeowHud",
+	"description": "My smoll hud :3",
+	"authors": [
+		"Witchie:3"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/meowhud/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"meow.code.MeowHud"
+		],
+		"client": [
+			"meow.code.MeowHudClient"
+		]
+	},
+	"mixins": [
+		"meowhud.mixins.json",
+		{
+			"config": "meowhud.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
