@@ -52,6 +52,10 @@
     More in confing.
 
 ## Config
+
+###     Important!!!
+        You have to create or copy config.witchie in to .minecraft/config else the mod will crash.
+
 ###     Rules:
         After a keyword the next line needs to be its value!!! (the code loads the vaule directly under the keyword)
         Dont create coloms and rows with a index that is out reach. (the game will crash as by desig)
