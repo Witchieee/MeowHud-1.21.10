@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -15,11 +17,11 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class ConfigBuilder{
     HudConfig arg0;
-    ConfigInfo object;
     Path config_path;
     List<String> reader;
+    ArrayList<String> keys = new ArrayList<String>();
+    ArrayList<String> values = new ArrayList<String>();
     ArrayList<ArrayList<ConfigInfo>> holder = new ArrayList<ArrayList<ConfigInfo>>();
-    ArrayList<ConfigInfo> colom = new ArrayList<ConfigInfo>();
 
     int at_colom;
     int at_row;
@@ -43,39 +45,32 @@ public class ConfigBuilder{
             return holder;
         }
 
+        at_colom = 0;
+
         while(loop("colom {")){
             if(reader.isEmpty()) return holder;
-            at_colom = Integer.parseInt(reader.remove(0).trim());
-            holder.add(at_colom, colom);
+            holder.add(new ArrayList<ConfigInfo>());
+            at_row = 0;
 
             while(loop("row {")){
                 if(reader.isEmpty()) return holder;
-                at_row = Integer.parseInt(reader.remove(0).trim());
-                holder.get(at_colom).add(at_row, new ConfigInfo());
+                holder.get(at_colom).add(new ConfigInfo());
                 
                 confiClassLoader();
+                at_row++;
             }
+
+            at_colom++;
         }
+        
 
         return holder;
     }
 
-    boolean loop(String word){
-        String line;
-
-        while(!reader.isEmpty()){
-            line = reader.remove(0).trim();
-
-            if(line.equals("}")) break;
-            if(line.equals(word)) return true;
-        }
-
-        return false;
-    }
-
     void confiClassLoader(){
         String line;
-        object = holder.get(at_colom).get(at_row);
+        DefaultConfig preset = new DefaultConfig();
+        ConfigInfo object = holder.get(at_colom).get(at_row);
 
         object.holder = arg0;
 
@@ -111,12 +106,23 @@ public class ConfigBuilder{
                     object.pos_y = Integer.parseInt(reader.remove(0).trim());
                     break;
 
-                case "%COLOR {":
-                    setColor();
+                case "%COLOR {": 
+                    setMultiple(preset.new Color());
+
+                    for(String entry : values){
+                        object.color <<= 8;
+                        object.color |= Integer.parseInt(entry);
+                    }
+
                     break;
 
                 case "%SETMOVMENT {":
-                    setMovment();
+                    setMultiple(preset.new Movment());
+                    
+                    for(int i = 0; i < values.size(); i++){
+                        object.movment[i] = values.get(i);
+                    }
+                    
                     break;
 
                 case "%ALIGN":
@@ -172,79 +178,30 @@ public class ConfigBuilder{
         }
     }
 
-    void setColor(){
+    void setMultiple(DefaultConfig.Info object){
+        String line;
+        keys = object.keys;
+        values = object.values;
+        
+        while(!reader.isEmpty()){
+            line = reader.remove(0).trim();
+
+            if(line.equals("}") || reader.isEmpty()) return;
+            if(!keys.contains(line)) continue;
+            values.set(keys.indexOf(line), reader.remove(0).trim());
+        }
+    }
+
+    boolean loop(String word){
         String line;
 
         while(!reader.isEmpty()){
             line = reader.remove(0).trim();
 
-             switch(line){
-                case "}":
-                    return;
-
-                case "%ALPA":
-                    if(reader.isEmpty()) return;
-                    object.color &= 0x00FFFFFF;
-                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 24;
-                    break;
-
-                case "%RED":
-                    if(reader.isEmpty()) return;
-                    object.color &= 0xFF00FFFF;
-                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 16;
-                    break;
-
-                case "%GREEN":
-                    if(reader.isEmpty()) return;
-                    object.color &= 0xFFFF00FF;
-                    object.color |= Integer.parseInt(reader.remove(0).trim()) << 8;
-                    break;
-
-                 case "%BLUE":
-                    if(reader.isEmpty()) return;
-                    object.color &= 0xFFFFFF00;
-                    object.color |= Integer.parseInt(reader.remove(0).trim());
-                    break;
-
-                 default:
-                    break;
-            }           
+            if(line.equals("}")) break;
+            if(line.equals(word)) return true;
         }
-    }
 
-    void setMovment(){
-        String line;
-
-        while(!reader.isEmpty()){
-            line = reader.remove(0).trim();
-
-            switch(line){
-                case "}":
-                    return;
-
-                case "%SWIM":
-                    if(reader.isEmpty()) return;
-                    object.movment[0] = reader.remove(0).trim();
-                    break;
-
-                case "%CROUCH":
-                    if(reader.isEmpty()) return;
-                    object.movment[1] = reader.remove(0).trim();
-                    break;
-
-                case "%SPRINT":
-                    if(reader.isEmpty()) return;
-                    object.movment[2] = reader.remove(0).trim();
-                    break;
-
-                 case "%STAND":
-                    if(reader.isEmpty()) return;
-                    object.movment[3] = reader.remove(0).trim();
-                    break;
-
-                 default:
-                    break;
-            }
-        }
-    }
+        return false;
+    }   
 }

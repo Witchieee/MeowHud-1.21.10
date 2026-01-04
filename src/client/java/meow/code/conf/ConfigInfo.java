@@ -1,20 +1,21 @@
 package meow.code.conf;
 
 import java.util.ArrayList;
+import java.nio.ByteBuffer;
 
 import net.minecraft.client.Minecraft;
 
 public class ConfigInfo{
+    DefaultConfig preset = new DefaultConfig();
     public HudConfig holder;
 
-    public int offset_x = 0;
-    public int offset_y = 10;
-    public int pos_x = 0;
-    public int pos_y = 0;
-    public int color = 0xFF000000;
-    public boolean align = false;
-    public String[] movment = {"Swimming", "Crouching", "Sprinting", ""};
-    public String stand = "";
+    public int offset_x = preset.new OffsetX().offset_x;
+    public int offset_y = preset.new OffsetY().offset_y;
+    public int pos_x = preset.new PosX().pos_x;
+    public int pos_y = preset.new PosY().pos_y;
+    public int color = preset.new Color().color;
+    public boolean align = preset.new Align().align;
+    public String[] movment = preset.new Movment().movment;
     public ArrayList<ConfigInfo.InfoClass> keys = new ArrayList<ConfigInfo.InfoClass>(); 
 
     public class InfoClass{
