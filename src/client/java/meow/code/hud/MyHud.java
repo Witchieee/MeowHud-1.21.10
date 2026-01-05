@@ -38,8 +38,6 @@ public class MyHud{
     }
 
     public static void render(GuiGraphics draw, DeltaTracker tick){
-        config.ping = client.getConnection().getPlayerInfo(config.name).getLatency() + "";
-        config.tps = "0";
         config.fps = client.getFps() + "";
         
         camera = client.getCameraEntity();
